@@ -294,7 +294,7 @@ def parse_uploaded_json_files(uploaded_files: Any) -> Dict[str, Any]:
     if not uploaded_files:
         return {"readable": readable, "unreadable": unreadable, "all_analytes": [], "files": []}
 
-    for uploaded in uploaded_files[:100]:
+    for uploaded in uploaded_files[:200]:
         fn = safe_text(getattr(uploaded, "name", None), "uploaded_file.json")
         original_fn = fn
         duplicate_counter = 2
@@ -2084,7 +2084,7 @@ if st.session_state.page == "Dataset":
             type=["json"],
             accept_multiple_files=True,
             key="json_file_uploader",
-            help="Upload up to 100 processed injection JSON files. Uploaded data are cached for this Streamlit session so navigation between pages does not clear the active dataset.",
+            help="Upload up to 200 processed injection JSON files. Uploaded data are cached for this Streamlit session so navigation between pages does not clear the active dataset.",
         )
 
         upload_signature = tuple(
