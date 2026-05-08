@@ -2366,7 +2366,7 @@ if st.session_state.page == "Dataset":
                             if isinstance(sample_info, dict):
                                 sample_id = sample_info.get("sample_id", "") or ""
 
-                if row_cols[1].button(str(injection_id), key=f"open_injection_{dataset_source}_{fn}", type="tertiary", use_container_width=True):
+                if row_cols[1].button(str(injection_id), key=f"open_injection_{dataset_source}_{fn}", type="tertiary", width='stretch'):
                     st.session_state.selected_file = fn
                     if fn in readable_files:
                         st.session_state.selected_index = readable_files.index(fn)
@@ -2495,7 +2495,7 @@ elif st.session_state.page == "Concerns Overview":
             row_cols = st.columns([0.55, 1.75, 1.35, 1.1, 1.25, 1.15, 1.15, 1.0, 0.8, 2.9])
             row_cols[0].markdown(f"<div class='concerns-row-text'><b>{seq}</b></div>", unsafe_allow_html=True)
 
-            if row_cols[1].button(str(row["Injection ID"]), key=f"concern_open_{seq}_{row_idx}_{fn}", type="tertiary", use_container_width=True):
+            if row_cols[1].button(str(row["Injection ID"]), key=f"concern_open_{seq}_{row_idx}_{fn}", type="tertiary", width='stretch'):
                 st.session_state.selected_file = fn
                 st.session_state.selected_index = readable_files.index(fn)
                 reset_injection_scoped_display_state()
@@ -2512,7 +2512,7 @@ elif st.session_state.page == "Concerns Overview":
             row_cols[9].markdown(f"<div class='concerns-row-text'>{html.escape(str(row['Description']))}</div>", unsafe_allow_html=True)
 
     with st.expander("Structured table preview", expanded=False):
-        st.dataframe(displayed_concerns_df, use_container_width=True, hide_index=True)
+        st.dataframe(displayed_concerns_df, width='stretch', hide_index=True)
 
 # -----------------------------
 # Ion Ratio Analysis page
@@ -2631,7 +2631,7 @@ elif st.session_state.page == "Ion Ratio Analysis":
             CHANNEL_STYLES[("analyte", "quantifier")]["dark"],
             show_trendline,
         )
-        st.plotly_chart(analyte_fig, use_container_width=True)
+        st.plotly_chart(analyte_fig, width='stretch')
         if show_trendline:
             st.caption(f"Trendline equation: {analyte_eqn or 'not available'}")
         if analyte_df[
@@ -2647,7 +2647,7 @@ elif st.session_state.page == "Ion Ratio Analysis":
             CHANNEL_STYLES[("internal_standard", "quantifier")]["dark"],
             show_trendline,
         )
-        st.plotly_chart(istd_fig, use_container_width=True)
+        st.plotly_chart(istd_fig, width='stretch')
         if show_trendline:
             st.caption(f"Trendline equation: {istd_eqn or 'not available'}")
         if istd_df[
@@ -2727,11 +2727,11 @@ elif st.session_state.page == "Summary / Trend":
             show_stats_lines,
             show_stats_labels,
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
 
         st.subheader("Summary statistics")
         stats_df = build_summary_stats_table(records_df, selected_channels)
-        st.dataframe(stats_df, use_container_width=True, hide_index=True)
+        st.dataframe(stats_df, width='stretch', hide_index=True)
 
         no_data_channels = []
         for ch in selected_channels:
@@ -2805,7 +2805,7 @@ elif st.session_state.page == "Peak Shape Analysis":
         st.info("Select one or more channels to display.")
     else:
         fig = build_peak_shape_chart(records_df, selected_channels, parameter)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
 
         no_data_channels = []
         for ch in selected_channels:
@@ -2981,7 +2981,7 @@ else:
         else:
             # Build an empty plot with missing annotations by passing a dummy quad
             fig = build_quad_plot({"analyte": {}, "internal_standard": {}}, trace_mode=trace_mode, show_apex=show_apex, show_consensus_rt=show_consensus_rt, show_expected_peak=show_expected_peak)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
 
     with right:
         st.subheader("Results")
@@ -3060,7 +3060,7 @@ else:
                 for section_name, df_section in tables:
                     st.markdown(f"**{section_name}**")
                     styled = style_method_comparison(df_section)
-                    st.dataframe(styled, use_container_width=True)
+                    st.dataframe(styled, width='stretch')
 
         with st.expander("Calibration", expanded=False):
             calibrator = quad.get("calibrator", None) if isinstance(quad, dict) else None
@@ -3071,7 +3071,7 @@ else:
                 if cal_fig is None:
                     st.info("Calibration is not available for this analyte.")
                 else:
-                    st.plotly_chart(cal_fig, use_container_width=True)
+                    st.plotly_chart(cal_fig, width='stretch')
             with cal_right:
                 st.markdown(f"**Fit type**  \n{cal_meta['fit_type']}")
                 st.markdown(f"**Weight function**  \n{cal_meta['weight_function']}")
